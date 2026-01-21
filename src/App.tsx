@@ -19,6 +19,7 @@ function App() {
   let [settingsMenu, setSettingsMenu] = useState(false);
   let [winningNumBox, setWinningNumBox] = useState("");
   let [serveBox, setServeBox] = useState("");
+  let [winningPlayerNum, setWinningPlayerNum] = useState(2);
 
   let handleWinNumBox = (event: ChangeEvent<HTMLInputElement>) => {
     setWinningNumBox(event.target.value);
@@ -52,6 +53,11 @@ function App() {
       (player2Score >= winningNum && player2Score >= player1Score + 2)
     ) {
       setWinner(true);
+      if (player1Score > player2Score) {
+        setWinningPlayerNum(1);
+      } else {
+        setWinningPlayerNum(2);
+      }
     }
   };
 
@@ -87,6 +93,16 @@ function App() {
 
   return (
     <div className="flex flex-col h-dvh justify-center items-center text-center">
+      {winner ? (
+        <div className="flex fixed justify-center items-center text-center text-3xl w-full h-full  pointer-events-none">
+          <div className="flex fixed w-full h-full bg-gray-800 z-100 opacity-50"></div>
+          <div className="opacity-100 text-white z-105 text-5xl font-bold rotate-90 text-nowrap">
+            🥳Player {winningPlayerNum} Won!🥳
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <div className="flex fixed rotate-90 bg-white w-45 justify-around items-center p-1 rounded-xl right-0 translate-x-11">
         <button
           className="flex"
@@ -124,9 +140,11 @@ function App() {
           <div className="text-center w-full text-3xl font-bold mt-3">
             Settings
           </div>
-          <div className="flex flex-col gap-5 w-[70%] justify-center items-center h-[80%]">
-            <div className="flex flex-row items-center justify-evenly text-xl mt-10">
-              <label htmlFor="winNumBox">Score To Win:</label>
+          <div className="flex flex-col w-[80%] mt-8 gap-6  items-center h-[80%]">
+            <div className="flex flex-row items-center justify-evenly text-lg">
+              <label htmlFor="winNumBox" className="text-nowrap">
+                Score To Win:
+              </label>
               <input
                 id="winNumBox"
                 type="text"
@@ -134,10 +152,10 @@ function App() {
                 onChange={handleWinNumBox}
               />
             </div>
-            <div className="flex flex-row items-center justify-evenly text-xl mt-10">
-              <label htmlFor="winNumBox">Serves:</label>
+            <div className="flex flex-row items-center justify-evenly text-lg text-nowrap">
+              <label htmlFor="handleServeBox">Serves:</label>
               <input
-                id="winNumBox"
+                id="handleServeBox"
                 type="text"
                 className="w-[25%] h-10 text-center"
                 onChange={handleServeBox}
@@ -146,14 +164,14 @@ function App() {
           </div>
           <div className="flex flex-row w-full justify-evenly">
             <button
-              className="bg-blue-600 text-white p-6 rounded-2xl text-xl font-bold active:bg-blue-900 transition"
+              className="bg-blue-600 w-[45%] text-white p-3 rounded-2xl text-xl font-bold active:bg-blue-900 transition duration-75"
               onClick={applySettings}
             >
               Apply
             </button>
             <button
               onClick={resetDefaults}
-              className="bg-blue-600 text-white p-6 rounded-2xl text-xl font-bold active:bg-blue-900 transition"
+              className="bg-blue-600 text-white  p-3 w-[45%] rounded-2xl text-xl font-bold active:bg-blue-900 transition duration-75"
             >
               Defaults
             </button>
@@ -164,14 +182,14 @@ function App() {
       )}
       <div
         id="player1"
-        className={`h-full w-full flex justify-center items-center bg-blue-700 font-bold text-9xl ${servingPlayer == "player1" ? "text-yellow-300" : "text-white"}`}
+        className={`h-full w-full flex justify-center items-center bg-blue-700 active:bg-blue-800 transition duration-100  font-bold text-9xl ${servingPlayer == "player1" ? "text-yellow-300" : "text-white"}`}
         onClick={update1Score}
       >
         {player1Score}
       </div>
       <div
         id="player2"
-        className={`h-full w-full flex justify-center items-center bg-red-700 font-bold text-9xl ${servingPlayer == "player2" ? "text-yellow-300" : "text-white"}`}
+        className={`h-full w-full flex justify-center items-center bg-red-700 duration-100 active:bg-red-800 transition font-bold text-9xl ${servingPlayer == "player2" ? "text-yellow-300" : "text-white"}`}
         onClick={update2Score}
       >
         {player2Score}
