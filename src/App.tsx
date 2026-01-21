@@ -94,16 +94,16 @@ function App() {
   return (
     <div className="flex flex-col h-dvh justify-center items-center text-center">
       {winner ? (
-        <div className="flex fixed justify-center items-center text-center text-3xl w-full h-full  pointer-events-none">
-          <div className="flex fixed w-full h-full bg-gray-800 z-100 opacity-50"></div>
-          <div className="opacity-100 text-white z-105 text-5xl font-bold rotate-90 text-nowrap">
+        <div className="flex fixed justify-center inset-0 z-50 items-center text-center text-3xl w-full h-full  pointer-events-none">
+          <div className="flex fixed w-full h-full bg-gray-800 z-45 opacity-50"></div>
+          <div className="opacity-100 text-white z-50 text-5xl font-bold rotate-90 text-nowrap">
             🥳Player {winningPlayerNum} Won!🥳
           </div>
         </div>
       ) : (
         <div></div>
       )}
-      <div className="flex fixed rotate-90 bg-white w-45 justify-around items-center p-1 rounded-xl right-0 translate-x-11">
+      <div className="flex fixed rotate-90 bg-white w-45 z-40 justify-around items-center p-1 rounded-xl right-0 translate-x-11">
         <button
           className="flex"
           onClick={() => {
@@ -136,7 +136,7 @@ function App() {
         </button>
       </div>
       {settingsMenu ? (
-        <div className="fixed flex flex-col z-50 bg-white w-[70%] h-[80%] left-0 ml-6 rounded-3xl p-3 items-center">
+        <div className="fixed flex flex-col z-40 bg-white w-[70%] h-[80%] left-0 ml-6 rounded-3xl p-3 items-center">
           <div className="text-center w-full text-3xl font-bold mt-3">
             Settings
           </div>
@@ -182,10 +182,10 @@ function App() {
       )}
       <div
         id="player1"
-        className={`h-full w-full flex justify-center items-center bg-blue-700 active:bg-blue-800 transition duration-100  font-bold text-9xl ${servingPlayer == "player1" ? "text-yellow-300" : "text-white"}`}
+        className={`h-full w-full flex rotate-180 z-10 justify-center items-center bg-blue-700 active:bg-blue-800 transition duration-100  font-bold text-9xl ${servingPlayer == "player1" ? "text-yellow-300" : "text-white"}`}
         onClick={update1Score}
       >
-        <div className="rotate-180">{player1Score}</div>
+        {player1Score}
       </div>
       <div
         id="player2"
