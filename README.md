@@ -14,6 +14,8 @@ Currently running on: https://ping-pong-tracker-eight.vercel.app/
 
 ## Screenshots
 
+![A view of the app on mobile.](./src/assets/scoreAppAsset1.png)
+
 ## Installation
 
 ### Clone the repo:
@@ -44,6 +46,8 @@ npm run dev
 ---
 
 ## Notes
+
+- Although built for mobile, will work on a pc device, just may be clunky.
 
 ## License
 
