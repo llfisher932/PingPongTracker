@@ -185,7 +185,7 @@ function App() {
         className={`h-full w-full flex justify-center items-center bg-blue-700 active:bg-blue-800 transition duration-100  font-bold text-9xl ${servingPlayer == "player1" ? "text-yellow-300" : "text-white"}`}
         onClick={update1Score}
       >
-        {player1Score}
+        <div className="rotate-180">{player1Score}</div>
       </div>
       <div
         id="player2"
