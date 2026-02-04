@@ -294,6 +294,10 @@ function App() {
                 onChange={(e) => setRedNickname(e.target.value)}
               />
             </div>
+            <div>Currently Set As:</div>
+            <div>Username: {usernameInput} </div>
+            <div>Blue: {blueNickname} </div>
+            <div>red: {redNickname} </div>
           </div>
         </div>
       ) : (
