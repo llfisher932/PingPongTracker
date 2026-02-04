@@ -21,9 +21,9 @@ function App() {
   let [serveBox, setServeBox] = useState("");
   let [winningPlayerNum, setWinningPlayerNum] = useState(2);
   let [profileMenu, setProfileMenu] = useState(false);
-  let [usernameInput, setUsernameInput] = useState("");
-  let [redNickname, setRedNickname] = useState("red");
-  let [blueNickname, setBlueNickname] = useState("blue");
+  let [usernameInput, setUsernameInput] = useState("No User");
+  let [redNickname, setRedNickname] = useState("Red");
+  let [blueNickname, setBlueNickname] = useState("Blue");
 
   let handleWinNumBox = (event: ChangeEvent<HTMLInputElement>) => {
     setWinningNumBox(event.target.value);
@@ -294,10 +294,12 @@ function App() {
                 onChange={(e) => setRedNickname(e.target.value)}
               />
             </div>
-            <div>Currently Set As:</div>
+            <div className="text-3xl font-bold text-blue-800">
+              Profile Currently Set As:
+            </div>
             <div>Username: {usernameInput} </div>
             <div>Blue: {blueNickname} </div>
-            <div>red: {redNickname} </div>
+            <div>Red: {redNickname} </div>
           </div>
         </div>
       ) : (
