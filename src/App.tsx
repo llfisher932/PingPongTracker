@@ -92,7 +92,7 @@ function App() {
     let postData = { usernameInput };
     try {
       let response = await fetch(
-        `https://ping-pong-tracker-eight.vercel.app/profile`,
+        `https://ping-pong-tracker-eight.vercel.app/api/profile`,
         {
           method: "POST",
           headers: {
