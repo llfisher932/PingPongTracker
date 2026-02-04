@@ -16,4 +16,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Echo the data back
   res.status(200).json(data);
 }
-//St8rW8rs!W8rs!!
