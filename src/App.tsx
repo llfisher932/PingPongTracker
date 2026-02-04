@@ -325,26 +325,28 @@ function App() {
             <div>Blue: {blueNickname} </div>
             <div>Red: {redNickname} </div>
           </div>
-          <div className="w-full">
+          <div className="w-full h-[50%] flex flex-col">
             <div>
               <div className="text-3xl font-bold text-blue-800 mt-4 mb-2">
                 Match History:
               </div>
             </div>
-            {matchHistory.map((match, index) => (
-              <div key={index} className="flex flex-row">
-                <span
-                  className={`bg-blue-600  w-[50%]  p-4 text-nowrap ${match.blue_score > match.red_score ? "text-green-400" : "text-white"}`}
-                >
-                  {match.blue_nickname}: {match.blue_score}
-                </span>
-                <span
-                  className={`bg-red-600  w-[50%]  p-4 text-nowrap ${match.red_score > match.blue_score ? "text-green-400" : "text-white"}`}
-                >
-                  {match.red_nickname}: {match.red_score}
-                </span>
-              </div>
-            ))}
+            <div className="overflow-y-auto flex flex-col">
+              {matchHistory.map((match, index) => (
+                <div key={index} className="flex flex-row">
+                  <span
+                    className={`bg-blue-600  w-[50%]  p-4 text-nowrap ${match.blue_score > match.red_score ? "text-green-400" : "text-white"}`}
+                  >
+                    {match.blue_nickname}: {match.blue_score}
+                  </span>
+                  <span
+                    className={`bg-red-600  w-[50%]  p-4 text-nowrap ${match.red_score > match.blue_score ? "text-green-400" : "text-white"}`}
+                  >
+                    {match.red_nickname}: {match.red_score}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       ) : (
