@@ -1,3 +1,14 @@
-import app from "../src/server";
+import express from "express";
+import cors from "cors";
+
+const app = express();
+
+app.use(cors({ origin: "*" }));
+app.use(express.json());
+
+app.post("/", (req, res) => {
+  console.log("Body received:", req.body);
+  res.json(req.body);
+});
 
 export default app;
