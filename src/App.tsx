@@ -6,6 +6,7 @@ import {
   faArrowsRotate,
   faGear,
   faUser,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
 function App() {
   let [player1Score, setPlayer1Score] = useState(0);
@@ -24,6 +25,7 @@ function App() {
   let [usernameInput, setUsernameInput] = useState("No User");
   let [redNickname, setRedNickname] = useState("Red");
   let [blueNickname, setBlueNickname] = useState("Blue");
+  let [matchHistory, setMatchHistory] = useState<match[]>([]);
 
   let handleWinNumBox = (event: ChangeEvent<HTMLInputElement>) => {
     setWinningNumBox(event.target.value);
@@ -110,11 +112,19 @@ function App() {
       }
       const data = await response.json();
       console.log("Success:", data);
+      setMatchHistory(data);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
+  type match = {
+    username: string;
+    blue_score: number;
+    red_score: number;
+    blue_nickname: string;
+    red_nickname: string;
+  };
   let handleGameSave = async () => {
     let postData = {
       usernameInput,
@@ -140,6 +150,7 @@ function App() {
       }
       const data = await response.json();
       console.log("Success:", data);
+      setMatchHistory(data);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -258,11 +269,17 @@ function App() {
         <div></div>
       )}
       {profileMenu ? (
-        <div className="fixed flex flex-col z-40 bg-white w-[70%] h-[80%] left-0 ml-6 rounded-3xl p-3 items-center">
-          <div className="text-center w-full text-3xl font-bold mt-3">
+        <div className="fixed flex flex-col z-40 bg-white w-full h-full left-0 p-3 items-center">
+          <div
+            className="absolute top-3 left-3 text-xl text-red-500"
+            onClick={() => setProfileMenu(false)}
+          >
+            <FontAwesomeIcon icon={faX} />
+          </div>
+          <div className="text-center w-full text-4xl text-blue-800 font-bold mt-3">
             Profile
           </div>
-          <div className="flex flex-col w-[80%] mt-8 gap-6  items-center h-[80%]">
+          <div className="flex flex-col w-[95%] mt-8 gap-6  items-center">
             <div className="flex flex-row items-center justify-evenly text-lg">
               <label htmlFor="usernameInput" className="text-nowrap">
                 Username:
@@ -270,7 +287,7 @@ function App() {
               <input
                 id="usernameInput"
                 type="text"
-                className="w-[60%] h-10 text-center border-black border-2 rounded-lg"
+                className="w-[40%] h-10 text-center border-black border-2 rounded-lg"
                 onChange={(e) => setUsernameInput(e.target.value)}
               />
             </div>
@@ -281,7 +298,7 @@ function App() {
               <input
                 id="blueName"
                 type="text"
-                className="w-[60%] h-10 text-center border-black border-2 rounded-lg"
+                className="w-[40%] h-10 text-center border-black border-2 rounded-lg"
                 onChange={(e) => setBlueNickname(e.target.value)}
               />
             </div>
@@ -292,16 +309,39 @@ function App() {
               <input
                 id="redName"
                 type="text"
-                className="w-[60%] h-10 text-center border-black border-2 rounded-lg"
+                className="w-[40%] h-10 text-center border-black border-2 rounded-lg"
                 onChange={(e) => setRedNickname(e.target.value)}
               />
             </div>
-            <div className="text-3xl font-bold text-blue-800">
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-blue-800 mt-6">
               Profile Currently Set As:
             </div>
             <div>Username: {usernameInput} </div>
             <div>Blue: {blueNickname} </div>
             <div>Red: {redNickname} </div>
+          </div>
+          <div className="w-full">
+            <div>
+              <div className="text-3xl font-bold text-blue-800 mt-4 mb-2">
+                Match History:
+              </div>
+            </div>
+            {matchHistory.map((match, index) => (
+              <div key={index} className="flex flex-row">
+                <span
+                  className={`bg-blue-600  w-[50%]  p-4 text-nowrap ${match.blue_score > match.red_score ? "text-green-400" : "text-white"}`}
+                >
+                  {match.blue_nickname}: {match.blue_score}
+                </span>
+                <span
+                  className={`bg-red-600  w-[50%]  p-4 text-nowrap ${match.red_score > match.blue_score ? "text-green-400" : "text-white"}`}
+                >
+                  {match.red_nickname}: {match.red_score}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       ) : (
