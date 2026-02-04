@@ -222,6 +222,7 @@ function App() {
                 onChange={handleServeBox}
               />
             </div> */}
+            <div>{usernameInput}</div>
           </div>
           {/*<div className="flex flex-row w-full justify-evenly">
             <button
