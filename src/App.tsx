@@ -7,7 +7,6 @@ import {
   faGear,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-//TODO: defaults button
 function App() {
   let [player1Score, setPlayer1Score] = useState(0);
   let [player2Score, setPlayer2Score] = useState(0);
@@ -89,12 +88,39 @@ function App() {
     }
   };
 
+  let handleUsernameChange = async () => {
+    let postData = { usernameInput };
+    try {
+      let response = await fetch(
+        `https://ping-pong-tracker-eight.vercel.app/profile`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   useEffect(() => {
     checkWinner();
   }, [player1Score, player2Score]);
   useEffect(() => {
     updateServe();
   }, [serveTracker]);
+  useEffect(() => {
+    handleUsernameChange();
+  }, [usernameInput]);
 
   return (
     <div className="flex flex-col h-dvh justify-center items-center text-center">

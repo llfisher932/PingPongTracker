@@ -2,9 +2,11 @@
 import express from "express";
 const app = express();
 
+app.use(express.json);
 // Define your routes
-app.get("/", (_req, res) => {
-  res.json({ message: "Hello from Express on Vercel!" });
+app.post("/profile", (req, res, _next) => {
+  console.log(req.body);
+  res.json(req.body);
 });
 
 // Export the Express app
