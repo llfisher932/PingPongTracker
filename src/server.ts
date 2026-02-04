@@ -8,7 +8,7 @@ app.use(
 );
 app.use(express.json());
 // Define your routes
-app.post("/profile", (req, res, _next) => {
+app.post("/", (req, res, _next) => {
   console.log(req.body);
   res.json(req.body);
 });
