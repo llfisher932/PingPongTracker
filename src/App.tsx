@@ -22,6 +22,8 @@ function App() {
   let [winningPlayerNum, setWinningPlayerNum] = useState(2);
   let [profileMenu, setProfileMenu] = useState(false);
   let [usernameInput, setUsernameInput] = useState("");
+  let [redNickname, setRedNickname] = useState("red");
+  let [blueNickname, setBlueNickname] = useState("blue");
 
   let handleWinNumBox = (event: ChangeEvent<HTMLInputElement>) => {
     setWinningNumBox(event.target.value);
@@ -55,6 +57,7 @@ function App() {
       (player2Score >= winningNum && player2Score >= player1Score + 2)
     ) {
       setWinner(true);
+      handleGameSave();
       if (player1Score > player2Score) {
         setWinningPlayerNum(1);
       } else {
@@ -90,6 +93,36 @@ function App() {
 
   let handleUsernameChange = async () => {
     let postData = { usernameInput };
+    try {
+      let response = await fetch(
+        `https://ping-pong-tracker-eight.vercel.app/api/profile`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  let handleGameSave = async () => {
+    let postData = {
+      usernameInput,
+      player1Score,
+      player2Score,
+      blueNickname,
+      redNickname,
+    };
     try {
       let response = await fetch(
         `https://ping-pong-tracker-eight.vercel.app/api/profile`,
@@ -229,7 +262,7 @@ function App() {
           </div>
           <div className="flex flex-col w-[80%] mt-8 gap-6  items-center h-[80%]">
             <div className="flex flex-row items-center justify-evenly text-lg">
-              <label htmlFor="" className="text-nowrap">
+              <label htmlFor="usernameInput" className="text-nowrap">
                 Username:
               </label>
               <input
@@ -239,31 +272,29 @@ function App() {
                 onChange={(e) => setUsernameInput(e.target.value)}
               />
             </div>
-            {/* <div className="flex flex-row items-center justify-evenly text-lg text-nowrap">
-              <label htmlFor="handleServeBox">Serves:</label>
+            <div className="flex flex-row items-center justify-evenly text-lg">
+              <label htmlFor="blueName" className="text-nowrap">
+                Blue's Name:
+              </label>
               <input
-                id="handleServeBox"
+                id="blueName"
                 type="text"
-                className="w-[25%] h-10 text-center border-black border-2 rounded-lg"
-                onChange={handleServeBox}
+                className="w-[60%] h-10 text-center border-black border-2 rounded-lg"
+                onChange={(e) => setBlueNickname(e.target.value)}
               />
-            </div> */}
-            <div>{usernameInput}</div>
+            </div>
+            <div className="flex flex-row items-center justify-evenly text-lg">
+              <label htmlFor="redName" className="text-nowrap">
+                Red's Name:
+              </label>
+              <input
+                id="redName"
+                type="text"
+                className="w-[60%] h-10 text-center border-black border-2 rounded-lg"
+                onChange={(e) => setRedNickname(e.target.value)}
+              />
+            </div>
           </div>
-          {/*<div className="flex flex-row w-full justify-evenly">
-            <button
-              className="bg-blue-600 w-[45%] text-white p-3 rounded-2xl text-xl font-bold active:bg-blue-900 transition duration-75"
-              onClick={applySettings}
-            >
-              Apply
-            </button>
-            <button
-              onClick={resetDefaults}
-              className="bg-blue-600 text-white  p-3 w-[45%] rounded-2xl text-xl font-bold active:bg-blue-900 transition duration-75"
-            >
-              Defaults
-            </button>
-          </div> */}
         </div>
       ) : (
         <div></div>
