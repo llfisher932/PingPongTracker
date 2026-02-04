@@ -79,9 +79,11 @@ function App() {
     }
   };
   let applySettings = () => {
-    setWinningNum(Number.parseInt(winningNumBox));
-    setSavedServeNum(Number.parseInt(serveBox));
-    setServeCount(Number.parseInt(serveBox));
+    if (winningNumBox) setWinningNum(Number.parseInt(winningNumBox));
+    if (serveBox) {
+      setSavedServeNum(Number.parseInt(serveBox));
+      setServeCount(Number.parseInt(serveBox));
+    }
   };
 
   useEffect(() => {
@@ -148,7 +150,7 @@ function App() {
               <input
                 id="winNumBox"
                 type="text"
-                className="w-[25%] h-10 text-center"
+                className="w-[25%] h-10 text-center border-black border-2 rounded-lg"
                 onChange={handleWinNumBox}
               />
             </div>
@@ -157,7 +159,7 @@ function App() {
               <input
                 id="handleServeBox"
                 type="text"
-                className="w-[25%] h-10 text-center"
+                className="w-[25%] h-10 text-center border-black border-2 rounded-lg"
                 onChange={handleServeBox}
               />
             </div>
