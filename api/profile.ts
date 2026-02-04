@@ -1,18 +1,17 @@
-import express from "express";
-import cors from "cors";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-const app = express();
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  // Only allow POST
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-// Enable CORS
-app.use(cors({ origin: "*" }));
+  // Parse JSON body (Vercel parses it automatically if sent as JSON)
+  const data = req.body;
 
-// Parse JSON body
-app.use(express.json());
+  console.log("Body received:", data);
 
-// POST to the **root** of this API file
-app.post("/", (req, res) => {
-  console.log("Body received:", req.body);
-  res.json(req.body); // echoes the request
-});
-
-export default app;
+  // Echo the data back
+  res.status(200).json(data);
+}
