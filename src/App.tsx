@@ -172,6 +172,7 @@ function App() {
           className="flex"
           onClick={() => {
             setSettingsMenu(!settingsMenu);
+            setProfileMenu(false);
           }}
         >
           <FontAwesomeIcon
@@ -202,6 +203,7 @@ function App() {
           className="flex"
           onClick={() => {
             setProfileMenu(!profileMenu);
+            setSettingsMenu(false);
           }}
         >
           <FontAwesomeIcon
