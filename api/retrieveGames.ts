@@ -13,26 +13,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const {
-    blueNickname,
-    redNickname,
-    usernameInput,
-    player1Score,
-    player2Score,
-  } = req.body;
-
-  // Insert into Supabase
-  const { error: insertError } = await supabase.from("matches").insert([
-    {
-      blue_nickname: blueNickname,
-      red_nickname: redNickname,
-      username: usernameInput,
-      blue_score: player1Score,
-      red_score: player2Score,
-    },
-  ]);
-
-  if (insertError) return res.status(500).json({ error: insertError.message });
+  const { usernameInput } = req.body;
 
   const { data, error: selectError } = await supabase
     .from("matches")

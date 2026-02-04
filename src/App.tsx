@@ -91,29 +91,29 @@ function App() {
     }
   };
 
-  // let handleUsernameChange = async () => {
-  //   let postData = { usernameInput };
-  //   try {
-  //     let response = await fetch(
-  //       `https://ping-pong-tracker-eight.vercel.app/api/profile`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(postData),
-  //       },
-  //     );
+  let handleUsernameChange = async () => {
+    let postData = { usernameInput };
+    try {
+      let response = await fetch(
+        `https://ping-pong-tracker-eight.vercel.app/api/retrieveGames`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        },
+      );
 
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     const data = await response.json();
-  //     console.log("Success:", data);
-  //   } catch (error) {
-  //     console.log("Error: ", error);
-  //   }
-  // };
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
 
   let handleGameSave = async () => {
     let postData = {
