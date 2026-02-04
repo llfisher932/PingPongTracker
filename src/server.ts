@@ -2,7 +2,7 @@
 import express from "express";
 const app = express();
 
-app.use(express.json);
+app.use(express.json());
 // Define your routes
 app.post("/profile", (req, res, _next) => {
   console.log(req.body);
