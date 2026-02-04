@@ -151,9 +151,9 @@ function App() {
   useEffect(() => {
     updateServe();
   }, [serveTracker]);
-  // useEffect(() => {
-  //   handleUsernameChange();
-  // }, [usernameInput]);
+  useEffect(() => {
+    handleUsernameChange();
+  }, [usernameInput]);
 
   return (
     <div className="flex flex-col h-dvh justify-center items-center text-center">
