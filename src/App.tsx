@@ -274,7 +274,10 @@ function App() {
             className="absolute top-3 left-3 text-xl text-red-500"
             onClick={() => setProfileMenu(false)}
           >
-            <FontAwesomeIcon icon={faX} />
+            <FontAwesomeIcon
+              icon={faX}
+              className=" active:bg-gray-400 p-3 rounded-full transition"
+            />
           </div>
           <div className="text-center w-full text-4xl text-blue-800 font-bold mt-3">
             Profile
