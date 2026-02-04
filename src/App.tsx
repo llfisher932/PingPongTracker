@@ -5,6 +5,7 @@ import {
   faArrowRightArrowLeft,
   faArrowsRotate,
   faGear,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 //TODO: defaults button
 function App() {
@@ -20,6 +21,8 @@ function App() {
   let [winningNumBox, setWinningNumBox] = useState("");
   let [serveBox, setServeBox] = useState("");
   let [winningPlayerNum, setWinningPlayerNum] = useState(2);
+  let [profileMenu, setProfileMenu] = useState(false);
+  let [usernameInput, setUsernameInput] = useState("");
 
   let handleWinNumBox = (event: ChangeEvent<HTMLInputElement>) => {
     setWinningNumBox(event.target.value);
@@ -105,7 +108,7 @@ function App() {
       ) : (
         <div></div>
       )}
-      <div className="flex fixed rotate-90 bg-white w-45 z-40 justify-around items-center p-1 rounded-xl right-0 translate-x-11">
+      <div className="flex fixed rotate-90 bg-white w-55 z-40 justify-around items-center p-1 rounded-xl right-0 translate-x-18">
         <button
           className="flex"
           onClick={() => {
@@ -134,6 +137,17 @@ function App() {
           <FontAwesomeIcon
             icon={faArrowRightArrowLeft}
             className="text-2xl active:bg-gray-400 p-3 rounded-full transition"
+          />
+        </button>
+        <button
+          className="flex"
+          onClick={() => {
+            setProfileMenu(!profileMenu);
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faUser}
+            className="-rotate-90 text-2xl active:bg-gray-400 p-3 rounded-full transition"
           />
         </button>
       </div>
@@ -178,6 +192,51 @@ function App() {
               Defaults
             </button>
           </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+      {profileMenu ? (
+        <div className="fixed flex flex-col z-40 bg-white w-[70%] h-[80%] left-0 ml-6 rounded-3xl p-3 items-center">
+          <div className="text-center w-full text-3xl font-bold mt-3">
+            Profile
+          </div>
+          <div className="flex flex-col w-[80%] mt-8 gap-6  items-center h-[80%]">
+            <div className="flex flex-row items-center justify-evenly text-lg">
+              <label htmlFor="" className="text-nowrap">
+                Username:
+              </label>
+              <input
+                id="usernameInput"
+                type="text"
+                className="w-[60%] h-10 text-center border-black border-2 rounded-lg"
+                onChange={(e) => setUsernameInput(e.target.value)}
+              />
+            </div>
+            {/* <div className="flex flex-row items-center justify-evenly text-lg text-nowrap">
+              <label htmlFor="handleServeBox">Serves:</label>
+              <input
+                id="handleServeBox"
+                type="text"
+                className="w-[25%] h-10 text-center border-black border-2 rounded-lg"
+                onChange={handleServeBox}
+              />
+            </div> */}
+          </div>
+          {/*<div className="flex flex-row w-full justify-evenly">
+            <button
+              className="bg-blue-600 w-[45%] text-white p-3 rounded-2xl text-xl font-bold active:bg-blue-900 transition duration-75"
+              onClick={applySettings}
+            >
+              Apply
+            </button>
+            <button
+              onClick={resetDefaults}
+              className="bg-blue-600 text-white  p-3 w-[45%] rounded-2xl text-xl font-bold active:bg-blue-900 transition duration-75"
+            >
+              Defaults
+            </button>
+          </div> */}
         </div>
       ) : (
         <div></div>
